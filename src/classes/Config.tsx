@@ -35,6 +35,24 @@ export default class Config implements IConfig{
         return value
     }
 
+    /**
+     * Compares two Config objects to see if all of their
+     * fields match.
+     * 
+     * @param other Another Config object to compare this one to
+     * @returns True if all values match
+     */
+    compareTo(other: Config): boolean {
+        return this.attempts == other.attempts &&
+            this.letters == other.letters &&
+            this.keyColor == other.keyColor &&
+            this.warnAlreadyAttempted == other.warnAlreadyAttempted &&
+            this.useDatabase == other.useDatabase &&
+            this.dbType == other.dbType &&
+            this.dbHost == other.dbHost &&
+            this.dbPort == other.dbPort
+    }
+
     static emptyConfig(): Config {
         return new Config({
             attempts: 6,
