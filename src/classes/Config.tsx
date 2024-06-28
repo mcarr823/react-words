@@ -35,4 +35,17 @@ export default class Config implements IConfig{
         return value
     }
 
+    static emptyConfig(): Config {
+        return new Config({
+            attempts: 6,
+            letters: 5,
+            keyColor: true,
+            warnAlreadyAttempted: true,
+            useDatabase: false,
+            dbType: '',
+            dbHost: '',
+            dbPort: 0
+        })
+    }
+
 }
