@@ -1,0 +1,10 @@
+{
+    "attempts": 6,
+    "letters": 5,
+    "keyColor": true,
+    "warnAlreadyAttempted": false,
+    "useDatabase": false,
+    "dbType": "",
+    "dbHost": "",
+    "dbPort": 0
+}
