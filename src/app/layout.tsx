@@ -16,7 +16,6 @@ export default function RootLayout({
             <div className="collapse navbar-collapse" id="navbarSupportedContent">
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <NavLink text="Home" href="/"/>
-                <NavLink text="About" href="/about"/>
                 <NavLink text="Play" href="/play"/>
                 <NavLink text="Setup" href="/settings"/>
               </ul>

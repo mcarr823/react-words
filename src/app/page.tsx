@@ -12,7 +12,7 @@ export default function Home() {
       <div className="col-12 col-sm-10 col-lg-9 col-xl-6">
         
         <div>
-          <h2 className="m-3">
+          <h2 className="m-3 text-center">
             Welcome to Words!
           </h2>
 
