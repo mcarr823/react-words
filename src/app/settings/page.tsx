@@ -1,6 +1,7 @@
 "use client"
 
 import Checkbox from "@/components/forms/Checkbox";
+import Dropdown from "@/components/forms/Dropdown";
 import NumberInput from "@/components/forms/NumberInput";
 import TextInput from "@/components/forms/TextInput";
 
@@ -12,6 +13,12 @@ import TextInput from "@/components/forms/TextInput";
 export default function Settings() {
 
     const save = () => {}
+
+    const lettersTextArr = ["4", "5", "6", "7"]
+    const lettersValues = ["4", "5", "6", "7"]
+
+    const databaseTextArr = ["JSON (only suitable for smaller dictionaries)", "MongoDB", "MySQL", "PostgreSQL"]
+    const databaseValues = ["json", "mongo", "mysql", "postgres"]
     
   return (
     
@@ -26,15 +33,12 @@ export default function Settings() {
           <div className="p-3">
             <form>
 
-                <div className="mb-3">
-                    <label htmlFor="letters" className="form-label">Number of letters in the word to guess</label>
-                    <select id="letters" className="form-select">
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                    </select>
-                </div>
+                <Dropdown
+                    id="letters"
+                    label="Number of letters in the word to guess"
+                    optionText={lettersTextArr}
+                    optionValues={lettersValues}
+                    />
 
                 <NumberInput id="attempts" label="Number of attempts to guess correctly. 0 = infinite attempts"/>
 
@@ -42,15 +46,12 @@ export default function Settings() {
 
                 <Checkbox id="warnAlreadyAttempted" label="Show warning if a selected letter has already been ruled out"/>
 
-                <div className="mb-3">
-                    <label htmlFor="database" className="form-label">Possible words storage</label>
-                    <select id="database" className="form-select">
-                        <option value="json">JSON (only suitable for smaller dictionaries)</option>
-                        <option value="mongo">MongoDB</option>
-                        <option value="mysql">MySQL</option>
-                        <option value="postgres">PostgreSQL</option>
-                    </select>
-                </div>
+                <Dropdown
+                    id="database"
+                    label="Possible words storage"
+                    optionText={databaseTextArr}
+                    optionValues={databaseValues}
+                    />
 
                 <TextInput id="dbHost" label="Database host"/>
 
