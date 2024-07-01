@@ -1,10 +1,11 @@
 "use client"
 
 import Checkbox from "@/components/forms/Checkbox";
-import Dropdown from "@/components/forms/Dropdown";
 import NumberDropdown from "@/components/forms/NumberDropdown";
 import NumberInput from "@/components/forms/NumberInput";
+import PairDropdown from "@/components/forms/PairDropdown";
 import TextInput from "@/components/forms/TextInput";
+import DatabaseType from "enums/DatabaseType";
 
 /**
  * Screen from which to modify the app instance's settings
@@ -18,8 +19,7 @@ export default function Settings() {
     const lettersTextArr = ["4", "5", "6", "7"]
     const lettersValues = [4, 5, 6, 7]
 
-    const databaseTextArr = ["JSON (only suitable for smaller dictionaries)", "MongoDB", "MySQL", "PostgreSQL"]
-    const databaseValues = ["json", "mongo", "mysql", "postgres"]
+    const databaseTypes = DatabaseType.all()
     
   return (
     
@@ -64,11 +64,10 @@ export default function Settings() {
                   setValue={model.setWarnAlreadyAttempted}
                   />
 
-                <Dropdown
+                <PairDropdown
                     id="database"
                     label="Possible words storage"
-                    optionText={databaseTextArr}
-                    optionValues={databaseValues}
+                    options={databaseTypes}
                     value={model.dbType}
                     setValue={model.setDbType}
                     />
