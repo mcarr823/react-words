@@ -73,7 +73,12 @@ export default function Settings() {
                     setValue={model.setDbType}
                     />
 
-                <TextInput id="dbHost" label="Database host"/>
+                <TextInput
+                  id="dbHost"
+                  label="Database host"
+                  value={model.dbHost}
+                  setValue={model.setDbHost}
+                  />
 
                 <NumberInput
                   id="dbPort"
