@@ -43,7 +43,12 @@ export default function Settings() {
                     setValue={model.setLetters}
                     />
 
-                <NumberInput id="attempts" label="Number of attempts to guess correctly. 0 = infinite attempts"/>
+                <NumberInput
+                  id="attempts"
+                  label="Number of attempts to guess correctly. 0 = infinite attempts"
+                  value={model.attempts}
+                  setValue={model.setAttempts}
+                  />
 
                 <Checkbox
                   id="keyColor"
@@ -70,7 +75,12 @@ export default function Settings() {
 
                 <TextInput id="dbHost" label="Database host"/>
 
-                <NumberInput id="dbPort" label="Database port"/>
+                <NumberInput
+                  id="dbPort"
+                  label="Database port"
+                  value={model.dbPort}
+                  setValue={model.setDbPort}
+                  />
 
             </form>
           </div>
