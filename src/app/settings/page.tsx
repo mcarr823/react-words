@@ -2,6 +2,7 @@
 
 import Checkbox from "@/components/forms/Checkbox";
 import Dropdown from "@/components/forms/Dropdown";
+import NumberDropdown from "@/components/forms/NumberDropdown";
 import NumberInput from "@/components/forms/NumberInput";
 import TextInput from "@/components/forms/TextInput";
 
@@ -15,7 +16,7 @@ export default function Settings() {
     const save = () => {}
 
     const lettersTextArr = ["4", "5", "6", "7"]
-    const lettersValues = ["4", "5", "6", "7"]
+    const lettersValues = [4, 5, 6, 7]
 
     const databaseTextArr = ["JSON (only suitable for smaller dictionaries)", "MongoDB", "MySQL", "PostgreSQL"]
     const databaseValues = ["json", "mongo", "mysql", "postgres"]
@@ -33,11 +34,13 @@ export default function Settings() {
           <div className="p-3">
             <form>
 
-                <Dropdown
+                <NumberDropdown
                     id="letters"
                     label="Number of letters in the word to guess"
                     optionText={lettersTextArr}
                     optionValues={lettersValues}
+                    value={model.letters}
+                    setValue={model.setLetters}
                     />
 
                 <NumberInput id="attempts" label="Number of attempts to guess correctly. 0 = infinite attempts"/>
