@@ -20,10 +20,6 @@ export default interface IConfig{
     // already been crossed off.
     warnAlreadyAttempted: boolean;
 
-    // If true, use a database instance to retrieve the word list.
-    // If false, store words in data/${length}.json instead.
-    useDatabase: boolean;
-
     // Type of database to use.
     // eg. MongoDB, Postgres, MySQL
     dbType: string;

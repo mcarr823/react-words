@@ -10,7 +10,6 @@ export default class Config implements IConfig{
     letters: number;
     keyColor: boolean;
     warnAlreadyAttempted: boolean;
-    useDatabase: boolean;
     dbType: string;
     dbHost: string;
     dbPort: number;
@@ -22,7 +21,6 @@ export default class Config implements IConfig{
         this.letters = this.validate(conf.letters)
         this.keyColor = this.validate(conf.keyColor)
         this.warnAlreadyAttempted = this.validate(conf.warnAlreadyAttempted)
-        this.useDatabase = this.validate(conf.useDatabase)
         this.dbType = this.validate(conf.dbType)
         this.dbHost = this.validate(conf.dbHost)
         this.dbPort = this.validate(conf.dbPort)
@@ -47,7 +45,6 @@ export default class Config implements IConfig{
             this.letters == other.letters &&
             this.keyColor == other.keyColor &&
             this.warnAlreadyAttempted == other.warnAlreadyAttempted &&
-            this.useDatabase == other.useDatabase &&
             this.dbType == other.dbType &&
             this.dbHost == other.dbHost &&
             this.dbPort == other.dbPort
@@ -59,7 +56,6 @@ export default class Config implements IConfig{
             letters: 5,
             keyColor: true,
             warnAlreadyAttempted: true,
-            useDatabase: false,
             dbType: '',
             dbHost: '',
             dbPort: 0
