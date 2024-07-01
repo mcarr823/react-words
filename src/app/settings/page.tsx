@@ -45,9 +45,19 @@ export default function Settings() {
 
                 <NumberInput id="attempts" label="Number of attempts to guess correctly. 0 = infinite attempts"/>
 
-                <Checkbox id="keyColor" label="Grey out keyboard when letters have been used"/>
+                <Checkbox
+                  id="keyColor"
+                  label="Grey out keyboard when letters have been used"
+                  value={model.keyColor}
+                  setValue={model.setKeyColor}
+                  />
 
-                <Checkbox id="warnAlreadyAttempted" label="Show warning if a selected letter has already been ruled out"/>
+                <Checkbox
+                  id="warnAlreadyAttempted"
+                  label="Show warning if a selected letter has already been ruled out"
+                  value={model.warnAlreadyAttempted}
+                  setValue={model.setWarnAlreadyAttempted}
+                  />
 
                 <Dropdown
                     id="database"
