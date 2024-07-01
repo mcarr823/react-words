@@ -64,6 +64,8 @@ export default function Settings() {
                     label="Possible words storage"
                     optionText={databaseTextArr}
                     optionValues={databaseValues}
+                    value={model.dbType}
+                    setValue={model.setDbType}
                     />
 
                 <TextInput id="dbHost" label="Database host"/>
