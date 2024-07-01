@@ -1,7 +1,11 @@
 import { useState } from "react"
+import Config from "classes/Config"
+import IConfig from "interfaces/IConfig"
+import { INextResponseSuccess } from "network/NextResponseSuccess"
 
 export default function SettingsViewModel(): ISettingsViewModel{
 
+    const [loaded, setLoaded] = useState<boolean>(false)
     const [attempts, setAttempts] = useState<number>(0)
     const [letters, setLetters] = useState<number>(0)
     const [keyColor, setKeyColor] = useState<boolean>(false)
@@ -10,6 +14,29 @@ export default function SettingsViewModel(): ISettingsViewModel{
     const [dbHost, setDbHost] = useState<string>("")
     const [dbPort, setDbPort] = useState<number>(0)
 
+    // Load a config object into the viewmodel
+    const importConfig = (config: IConfig) => {
+        setAttempts(config.attempts)
+        setLetters(config.letters)
+        setKeyColor(config.keyColor)
+        setWarnAlreadyAttempted(config.warnAlreadyAttempted)
+        setDbType(config.dbType)
+        setDbHost(config.dbHost)
+        setDbPort(config.dbPort)
+    }
+
+    // When the viewmodel first loads, fetch the config from the server
+    useEffect(() => {
+        if (loaded){
+            fetch('/api/config')
+                .then((res) => res.json())
+                .then((res: INextResponseSuccess) => {
+                    const data = res.data as IConfig
+                    importConfig(data)
+                    setLoaded(false)
+                })
+        }
+    }, [loaded])
     // TODO: function to retrieve settings from server
     // TODO: function to save settings on server
 
