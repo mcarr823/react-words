@@ -1,11 +1,13 @@
-import { useState } from "react"
 import Config from "classes/Config"
 import IConfig from "interfaces/IConfig"
 import { INextResponseSuccess } from "network/NextResponseSuccess"
+import { useEffect, useState } from "react"
 
 export default function SettingsViewModel(): ISettingsViewModel{
 
     const [loaded, setLoaded] = useState<boolean>(false)
+    const [saving, setSaving] = useState<boolean>(false)
+
     const [attempts, setAttempts] = useState<number>(0)
     const [letters, setLetters] = useState<number>(0)
     const [keyColor, setKeyColor] = useState<boolean>(false)
@@ -37,6 +39,28 @@ export default function SettingsViewModel(): ISettingsViewModel{
                 })
         }
     }, [loaded])
+
+    // Function for saving the user's configs to disk
+    const save = () => {
+        setSaving(true)
+        const config = new Config({
+            attempts,
+            letters,
+            keyColor,
+            warnAlreadyAttempted,
+            dbType,
+            dbHost,
+            dbPort,
+        })
+        fetch('/api/config', {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json', },
+            body: JSON.stringify(config),
+        })
+            .then((res) => res.json())
+            .then((_: JSON) => setSaving(false))
+    }
+
     // TODO: function to retrieve settings from server
     // TODO: function to save settings on server
 
@@ -47,7 +71,9 @@ export default function SettingsViewModel(): ISettingsViewModel{
         warnAlreadyAttempted, setWarnAlreadyAttempted,
         dbType, setDbType,
         dbHost, setDbHost,
-        dbPort, setDbPort
+        dbPort, setDbPort,
+        saving,
+        save
     }
 
 }
@@ -67,4 +93,6 @@ interface ISettingsViewModel{
     setDbHost: (value: string) => void;
     dbPort: number;
     setDbPort: (value: number) => void;
+    saving: boolean;
+    save: () => void;
 }

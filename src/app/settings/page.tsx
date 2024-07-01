@@ -6,6 +6,7 @@ import NumberInput from "@/components/forms/NumberInput";
 import PairDropdown from "@/components/forms/PairDropdown";
 import TextInput from "@/components/forms/TextInput";
 import DatabaseType from "enums/DatabaseType";
+import SettingsViewModel from "viewmodels/SettingsViewModel";
 
 /**
  * Screen from which to modify the app instance's settings
@@ -14,10 +15,10 @@ import DatabaseType from "enums/DatabaseType";
  */
 export default function Settings() {
 
-    const save = () => {}
+    const model = SettingsViewModel()
 
-    const lettersTextArr = ["4", "5", "6", "7"]
     const lettersValues = [4, 5, 6, 7]
+    const lettersTextArr = lettersValues.map(i => `${i} Letters`)
 
     const databaseTypes = DatabaseType.all()
     
@@ -90,7 +91,7 @@ export default function Settings() {
           </div>
 
           <div className="card-footer text-center pt-3">
-            <button className="btn btn-primary btn-lg" onClick={save}>Save</button>
+            <button className="btn btn-primary btn-lg" onClick={model.save}>Save</button>
           </div>
           
         </div>
