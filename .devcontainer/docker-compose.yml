@@ -1,0 +1,42 @@
+version: '3.8'
+services:
+  node:
+    image: mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm
+    volumes:
+      - ..:/workspace:cached
+    command: sleep infinity
+  #   links:
+  #     - mongo:mongo
+  #     - mariadb:mariadb
+  #     - postgres:postgres
+
+  # mongo:
+  #   image: mongo
+  #   restart: always
+  #   volumes:
+  #     - ./mongo:/docker-entrypoint-initdb.d
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: test
+  #     MONGO_INITDB_ROOT_PASSWORD: test
+
+  # mariadb:
+  #   image: mariadb:11.4.2
+  #   restart: always
+  #   volumes:
+  #     - ./mariadb:/docker-entrypoint-initdb.d
+  #   environment:
+  #     MYSQL_ROOT_PASSWORD: test
+  #     MYSQL_USER: test
+  #     MYSQL_PASSWORD: test
+  #     MYSQL_DATABASE: test
+
+  # postgres:
+  #   image: postgres:16.3
+  #   restart: always
+  #   volumes:
+  #     - ./postgres:/docker-entrypoint-initdb.d
+  #   shm_size: 128mb
+  #   environment:
+  #     POSTGRES_PASSWORD: test
+  #     POSTGRES_USER: test
+  #     POSTGRES_DB: test
