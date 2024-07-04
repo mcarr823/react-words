@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
+    "fast-xml-parser": "^4.4.0",
     "mongodb": "6.7",
     "mysql2": "^3.10.2",
     "next": "latest",
