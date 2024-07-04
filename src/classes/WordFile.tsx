@@ -1,4 +1,5 @@
 import IWordFile from "interfaces/IWordFile";
+import Word from "./Word";
 
 /**
  * Validates an IWordFile JSON data response and provides
@@ -6,7 +7,7 @@ import IWordFile from "interfaces/IWordFile";
  */
 export default class WordFile implements IWordFile{
 
-    words: Array<string>;
+    words: Array<Word>;
 
     constructor(
         file: IWordFile
@@ -23,7 +24,7 @@ export default class WordFile implements IWordFile{
      * @returns An array containing a random word from the file.
      * Returns an empty array if there are no words.
      */
-    random(): Array<string> {
+    random(): Array<Word> {
         
         const length = this.words.length
         if (length === 0){
@@ -53,7 +54,7 @@ export default class WordFile implements IWordFile{
     ): WordFile {
 
         const toRemoveLower = wordsToRemove.map(w => w.toLowerCase())
-        const filtered = this.words.filter(w => w.toLowerCase() !in toRemoveLower)
+        const filtered = this.words.filter(w => w.w_word.toLowerCase() !in toRemoveLower)
         return new WordFile({
             words: filtered
         })
