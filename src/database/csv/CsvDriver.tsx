@@ -31,17 +31,17 @@ export default class JsonDriver extends AbstractFlatFileDriver{
         const lines = data.split("\n")
         const linesAndRows = lines.map(l => l.split(","))
 
-        var i = 0
-        const arr = linesAndRows.map(cols => {
-            i += 1
+        var w_id = 0
+        const words = linesAndRows.map(cols => {
+            w_id += 1
             
-            const w_word = cols[0].toUpperCase()
+            const w_word = cols[0]
             // TODO validate w_word, make sure they're all alpha characters
 
-            const w_length = (cols.length > 1) ? parseInt(cols[1]):  cols[0].length
-            return new Word({ w_id:i, w_length, w_word })
+            const w_length = (cols.length > 1) ? parseInt(cols[1]) : cols[0].length
+            return new Word({ w_id, w_length, w_word })
         })
-        return new WordFile({ words:arr })
+        return new WordFile({ words })
 
     }
 

@@ -18,7 +18,7 @@ export default class Word implements IWord{
     constructor(args: IWord){
         this.w_id = args.w_id
         this.w_length = args.w_length
-        this.w_word = args.w_word
+        this.w_word = args.w_word.toUpperCase()
     }
 
 }

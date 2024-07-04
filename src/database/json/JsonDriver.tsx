@@ -21,15 +21,14 @@ export default class JsonDriver extends AbstractFlatFileDriver{
     parseWordFile(data: string): IWordFile{
         
         const json = JSON.parse(data)
-        const words = json.words as Array<String>
-        var i = 0
-        const arr = words.map(w => {
-            i += 1
-            const w_word = w.toUpperCase()
+        const strArray = json.words as Array<string>
+        var w_id = 0
+        const words = strArray.map(w_word => {
+            w_id += 1
             const w_length = w_word.length
-            return new Word({ w_id: i, w_word, w_length })
+            return new Word({ w_id, w_word, w_length })
         })
-        return new WordFile({ words:arr })
+        return new WordFile({ words })
 
     }
 
