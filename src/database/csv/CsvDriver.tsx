@@ -37,7 +37,7 @@ export default class CsvDriver extends AbstractFlatFileDriver{
             
             const w_word = cols[0]
 
-            const w_length = (cols.length > 1) ? parseInt(cols[1]) : cols[0].length
+            const w_length = (cols.length > 1) ? parseInt(cols[1]) : undefined
             return new Word({ w_id, w_length, w_word })
         })
         return new WordFile({ words })

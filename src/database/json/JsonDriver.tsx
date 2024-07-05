@@ -25,8 +25,7 @@ export default class JsonDriver extends AbstractFlatFileDriver{
         var w_id = 0
         const words = strArray.map(w_word => {
             w_id += 1
-            const w_length = w_word.length
-            return new Word({ w_id, w_word, w_length })
+            return new Word({ w_id, w_word })
         })
         return new WordFile({ words })
 
