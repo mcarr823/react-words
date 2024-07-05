@@ -61,11 +61,21 @@ export default class WordFile implements IWordFile{
 
     }
 
-    private validate<T>(value: T): T {
+    private validate(value: Array<Word>): Array<Word> {
+
         if (typeof value === 'undefined'){
             throw Error("One or more expected parameters not specified")
         }
-        return value
+
+        const filtered = value.filter(w => w.w_length > 0)
+
+        filtered.forEach(w => {
+            if (w.w_length != w.w_word.length){
+                throw new Error(`Length match failed for '${w.w_word}' (${w.w_length} != ${w.w_word.length})`);
+            }
+        })
+        // TODO validate w_word, make sure they're all alpha characters
+        return filtered
     }
 
     static emptyWordFile(): WordFile {
