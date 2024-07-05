@@ -20,7 +20,7 @@ import IWordFile from "interfaces/IWordFile"
  * If you try to use words with special characters, such as apostrophes,
  * it won't work.
  */
-export default class JsonDriver extends AbstractFlatFileDriver{
+export default class CsvDriver extends AbstractFlatFileDriver{
 
     constructor(){
         super("csv")
@@ -36,7 +36,6 @@ export default class JsonDriver extends AbstractFlatFileDriver{
             w_id += 1
             
             const w_word = cols[0]
-            // TODO validate w_word, make sure they're all alpha characters
 
             const w_length = (cols.length > 1) ? parseInt(cols[1]) : cols[0].length
             return new Word({ w_id, w_length, w_word })
