@@ -1,4 +1,4 @@
-import IWord, { IWordArgs } from "interfaces/IWord";
+import IWord from "interfaces/IWord";
 
 /**
  * Represents a row of the "Word" table.
