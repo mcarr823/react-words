@@ -54,7 +54,7 @@ export default class WordFile implements IWordFile{
     ): WordFile {
 
         const toRemoveLower = wordsToRemove.map(w => w.toLowerCase())
-        const filtered = this.words.filter(w => w.w_word.toLowerCase() !in toRemoveLower)
+        const filtered = this.words.filter(w => !toRemoveLower.includes(w.w_word.toLowerCase()))
         return new WordFile({
             words: filtered
         })
