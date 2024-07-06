@@ -12,8 +12,8 @@ export default function Play() {
 
     // For now, let's just display a few hard-coded test words
     const word = "testing"
-    const word2 = "testin "
-    const word3 = "       "
+    const guesses = ["toastie", "testies", "testin ", "testing"]
+    const guessNodes = guesses.map((g, i) => <Letters key={i} word={word} guess={g}/>)
 
     return (
         
@@ -26,9 +26,7 @@ export default function Play() {
                     </h2>
 
                     <div className="p-3">
-                        <Letters word={word}/>
-                        <Letters word={word2}/>
-                        <Letters word={word3}/>
+                        {guessNodes}
                     </div>
                 
                 </div>
