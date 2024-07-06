@@ -42,6 +42,10 @@ function calculateHints(args: ILetters): Array<Hint>{
 
     return guessChars.map((l, index) => {
 
+        if (l == " "){
+            return Hint.NONE
+        }
+
         // Find each occurrence of the current guess letter in the word.
         // Then find all correct guesses of the letter.
         const occurrencesInWord = wordChars.filter(w => w == l)

@@ -19,7 +19,8 @@ export default function Letter(args : ILetter){
         (<h2>&nbsp;</h2>) :
         (<h2>{letter.toUpperCase()}</h2>)
 
-    const className = "card text-light " + (
+    const textColor = hint == Hint.NONE ? "text-dark" : "text-light"
+    const className = "card " + textColor + " " + (
         hint == Hint.CORRECT ? "bg-success" :
         hint == Hint.CORRECT_ANOTHER ? "bg-primary" :
         hint == Hint.INCORRECT ? "bg-secondary" :
