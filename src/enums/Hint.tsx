@@ -22,5 +22,6 @@ export enum Hint{
     CORRECT,
     CORRECT_ANOTHER,
     WRONG_PLACEMENT,
-    INCORRECT
+    INCORRECT,
+    NONE
 }

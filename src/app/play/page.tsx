@@ -1,4 +1,7 @@
+"use client"
+
 import Letters from "@/components/letters/Letters";
+import Keyboard from "@/components/ui/Keyboard";
 
 /**
  * The actual game screen.
@@ -28,6 +31,8 @@ export default function Play() {
                     <div className="p-3">
                         {guessNodes}
                     </div>
+
+                    <Keyboard/>
                 
                 </div>
             </div>
