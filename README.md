@@ -5,3 +5,7 @@
 Self-hosted Wordle clone
 
 This program is a work-in-progress and is not yet functional.
+
+
+
+![alt text](screenshots/Screenshot.png "Title")
