@@ -17,9 +17,9 @@ export default function Keyboard(){
 
     // TODO also add listener for click events
 
-    const topRow = row1.map(l => <Key letter={l} hint={Hint.NONE}/>)
-    const midRow = row2.map(l => <Key letter={l} hint={Hint.NONE}/>)
-    const bottomRow = row3.map(l => <Key letter={l} hint={Hint.NONE}/>)
+    const topRow = row1.map(l => <Key key={l} letter={l} hint={Hint.NONE}/>)
+    const midRow = row2.map(l => <Key key={l} letter={l} hint={Hint.NONE}/>)
+    const bottomRow = row3.map(l => <Key key={l} letter={l} hint={Hint.NONE}/>)
 
     return (
         <div className="text-center">
