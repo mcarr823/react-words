@@ -4,6 +4,7 @@ services:
     image: mcr.microsoft.com/devcontainers/typescript-node:1-22-bookworm
     volumes:
       - ..:/workspace:cached
+      - ./testconfig:/workspace/src/data
     command: sleep infinity
   #   links:
   #     - mongo:mongo

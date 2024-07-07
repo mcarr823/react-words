@@ -1,0 +1,9 @@
+{
+    "attempts": 6,
+    "letters": 5,
+    "keyColor": true,
+    "warnAlreadyAttempted": false,
+    "dbType": "json",
+    "dbHost": "",
+    "dbPort": 0
+}
