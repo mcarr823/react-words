@@ -7,6 +7,7 @@ import Letter from "./Letter"
  * 
  * @param word The word to spell out
  * @param guess The guess made for this word
+ * @param disableHints If true, don't show any color hints
  * @returns Div node containing the row of letters
  */
 export default function Letters(args : ILetters){
@@ -34,7 +35,7 @@ export default function Letters(args : ILetters){
 
 function calculateHints(args: ILetters): Array<Hint>{
 
-    const { word, guess } = args
+    const { word, guess, disableHints } = args
 
     // Split the word and guess up into individual characters
     const wordChars = word.split("")
@@ -42,7 +43,10 @@ function calculateHints(args: ILetters): Array<Hint>{
 
     return guessChars.map((l, index) => {
 
-        if (l == " "){
+        // If hints are disabled, or if the letter is empty
+        // (eg. when displaying empty rows on the screen), return
+        // a value of NONE
+        if (disableHints || l == " "){
             return Hint.NONE
         }
 
@@ -87,4 +91,5 @@ function calculateHints(args: ILetters): Array<Hint>{
 interface ILetters{
     word: string;
     guess: string;
+    disableHints?: boolean;
 }
