@@ -1,6 +1,6 @@
 import fs from "node:fs"
 import NextResponseError from "network/NextResponseError"
-import NextResponseSuccess from "network/NextResponseSuccess"
+import NextResponseSuccess, { INextResponseSuccess } from "network/NextResponseSuccess"
 import { NextRequest } from "next/server"
 import IWordRequestResponse from "interfaces/IWordRequestResponse"
 import IWordFile from "interfaces/IWordFile"
@@ -8,15 +8,18 @@ import WordFile from "classes/WordFile"
 import JsonDriver from "database/json/JsonDriver"
 import IDeleteWordRequest from "interfaces/IDeleteWordRequest"
 import IConfig from "interfaces/IConfig"
+import {GET as getConfig} from "../config/route"
 
 export const localWordDir = process.cwd()+"/data/words"
 
 export const dynamic = 'force-dynamic' // defaults to auto
 
-export async function GET(request: NextRequest) {
+export async function GET(_: NextRequest) {
     
     try{
-        const wordReq: IConfig = await request.json()
+        const configResponse = await getConfig(_)
+        const nextResponseSuccess: INextResponseSuccess = await configResponse.json()
+        const wordReq: IConfig = nextResponseSuccess.data
 
         const length = wordReq.letters
 
