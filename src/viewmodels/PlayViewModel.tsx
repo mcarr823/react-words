@@ -2,8 +2,15 @@ import { useState } from "react"
 
 export default function PlayViewModel(): IPlayViewModel{
 
-    const [word, setWord] = useState<string>("")
-    const [guesses, setGuesses] = useState<Array<string>>([])
+    // TODO remove later
+    // Hard-coded test data
+    const TEST_WORD = "TESTING"
+    const maxLength = 5
+    const initialGuesses = Array<string>(maxLength)
+    for (var i = 0; i < maxLength; i += 1)
+        initialGuesses[i] = "".padEnd(TEST_WORD.length, " ")
+    const [word, setWord] = useState<string>(TEST_WORD)
+    const [guesses, setGuesses] = useState<Array<string>>(initialGuesses)
 
     // TODO useEffect to load random word from server
 

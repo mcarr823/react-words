@@ -2,6 +2,7 @@
 
 import Letters from "@/components/letters/Letters";
 import Keyboard from "@/components/ui/Keyboard";
+import PlayViewModel from "viewmodels/PlayViewModel";
 
 /**
  * The actual game screen.
@@ -13,10 +14,10 @@ import Keyboard from "@/components/ui/Keyboard";
  */
 export default function Play() {
 
+    const model = PlayViewModel()
+
     // For now, let's just display a few hard-coded test words
-    const word = "testing"
-    const guesses = ["toastie", "testies", "testin ", "testing"]
-    const guessNodes = guesses.map((g, i) => <Letters key={i} word={word} guess={g}/>)
+    const guessNodes = model.guesses.map((g, i) => <Letters key={i} word={model.word} guess={g}/>)
 
     return (
         
