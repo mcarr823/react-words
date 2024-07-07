@@ -1,21 +1,59 @@
-import { useState } from "react"
+import IConfig from "interfaces/IConfig"
+import IWordRequestResponse from "interfaces/IWordRequestResponse"
+import { INextResponseSuccess } from "network/NextResponseSuccess"
+import { useEffect, useState } from "react"
 
 export default function PlayViewModel(): IPlayViewModel{
 
-    // TODO remove later
-    // Hard-coded test data
-    const TEST_WORD = "TESTING"
-    const maxLength = 5
-    const initialGuesses = Array<string>(maxLength)
-    for (var i = 0; i < maxLength; i += 1)
-        initialGuesses[i] = "".padEnd(TEST_WORD.length, " ")
-    const testCurrentGuess = "".padEnd(TEST_WORD.length, " ")
+    const [word, setWord] = useState<string>("")
+    const [guesses, setGuesses] = useState<Array<string>>([])
+    const [currentGuess, setCurrentGuess] = useState<string>("")
+    const [allowedAttempts, setAllowedAttempts] = useState<number>(0)
+    const [currentAttempt, setCurrentAttempt] = useState<number>(0)
+    const [loaded, setLoaded] = useState<boolean>(false)
+    const [error, setError] = useState<string>("")
 
-    const [word, setWord] = useState<string>(TEST_WORD)
-    const [guesses, setGuesses] = useState<Array<string>>(initialGuesses)
-    const [currentGuess, setCurrentGuess] = useState<string>(testCurrentGuess)
+    const startNewGame = (newWord: string, config: IConfig) => {
 
-    // TODO useEffect to load random word from server
+        const maxNumberOfGuesses = config.attempts
+        const maxWordLength = newWord.length
+        const paddedInitialAttempt = "".padEnd(maxWordLength, " ")
+
+        const initialGuesses = Array<string>(maxNumberOfGuesses)
+        for (var i = 0; i < maxNumberOfGuesses; i += 1)
+            initialGuesses[i] = paddedInitialAttempt
+
+        setWord(newWord)
+        setGuesses(initialGuesses)
+        setCurrentGuess(paddedInitialAttempt)
+        setAllowedAttempts(maxNumberOfGuesses)
+        setCurrentAttempt(0)
+
+    }
+
+    // When the viewmodel first loads, fetch the config from the server
+    useEffect(() => {
+        if (!loaded){
+            fetch('/api/config')
+                .then((res) => res.json())
+                .then((res: INextResponseSuccess) => res.data as IConfig)
+                .then((config: IConfig) => {
+
+                    fetch('/api/word')
+                        .then(res => res.json())
+                        .then((res: INextResponseSuccess) => res.data as IWordRequestResponse)
+                        .then(data => {
+                            const w = data.word
+                            startNewGame(w.w_word, config)
+                            setLoaded(true)
+                        })
+                        .catch(() => {
+                            setError("Failed to load word")
+                            setLoaded(true)
+                        })
+                })
+        }
+    }, [loaded])
 
     // Add a new guess
     // Slice the existing guesses, so we don't go over 6 recent guesses
@@ -29,7 +67,7 @@ export default function PlayViewModel(): IPlayViewModel{
         setGuesses([
             ...guesses.slice(0, index),
             guess,
-            ...guesses.slice(index, maxLength-1)
+            ...guesses.slice(index, 5)
         ])
     }
 
@@ -37,7 +75,6 @@ export default function PlayViewModel(): IPlayViewModel{
         const trimmed = currentGuess.trim()
         if (trimmed.length < word.length){
             const newGuess = (trimmed+letter).padEnd(word.length, " ")
-            console.log(`Setting current guess to ${newGuess}`)
             setCurrentGuess(newGuess)
         }else{
             console.log("Guess is already full")
