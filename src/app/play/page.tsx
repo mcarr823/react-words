@@ -34,7 +34,7 @@ export default function Play() {
                         <Letters word="" guess={model.currentGuess} disableHints={true}/>
                     </div>
 
-                    <Keyboard/>
+                    <Keyboard model={model}/>
                 
                 </div>
             </div>
