@@ -47,11 +47,15 @@ export default class PostgresDriver implements IDatabaseDriver{
         return objects.map(r => new Word(r))
     }
 
-    async getWordRandom(length: number): Promise<Word[]>{
+    async getWordRandom(length: number): Promise<Word | undefined>{
         const sql = `SELECT * FROM ${Word.TABLE_NAME} WHERE ${Word.W_LENGTH} = ${length} ORDER BY RAND() LIMIT 1`
         const result = await this.query(sql)
-        const objects = result.map(r => r as IWord)
-        return objects.map(w => new Word(w))
+        if (result.length > 0){
+            const w = result[0] as IWord
+            return new Word(w)
+        }else{
+            return undefined
+        }
     }
     
     async getLengths(): Promise<number[]>{

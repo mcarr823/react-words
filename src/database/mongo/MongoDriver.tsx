@@ -71,14 +71,14 @@ export default class MongoDriver implements IDatabaseDriver{
         return objects.map(w => new Word(w))
     }
 
-    async getWordRandom(length: number): Promise<Word[]>{
+    async getWordRandom(length: number): Promise<Word | undefined>{
         const args: IWordArgs = { w_length: length }
         const result = await this.getRandom(Word.TABLE_NAME, args)
         if (result){
             const obj = result as IWord
-            return [new Word(obj)]
+            return new Word(obj)
         }else{
-            return []
+            return undefined
         }
     }
 

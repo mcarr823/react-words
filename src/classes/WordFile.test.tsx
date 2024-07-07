@@ -58,7 +58,7 @@ test('WordFile random()', async () => {
     expect(emptyWordFile.words.length).toBe(0)
 
     const emptyRandom = emptyWordFile.random()
-    expect(emptyRandom.length).toBe(0)
+    expect(emptyRandom).toBeUndefined()
 
 
     const oneWordFile = new WordFile({ words:[
@@ -67,8 +67,8 @@ test('WordFile random()', async () => {
     expect(oneWordFile.words.length).toBe(1)
 
     const oneRandom = oneWordFile.random()
-    expect(oneRandom.length).toBe(1)
-    expect(oneRandom[0].w_word.toLowerCase()).toBe("test")
+    expect(oneRandom).not.toBeUndefined()
+    expect(oneRandom?.w_word.toLowerCase()).toBe("test")
 
 
     var w_id = 0
@@ -82,8 +82,8 @@ test('WordFile random()', async () => {
 
     for (var i = 0; i < 10; i += 1){
         const fourRandom = fourWordFile.random()
-        expect(fourRandom.length).toBe(1)
-        const found = fourWords.includes(fourRandom[0].w_word.toLowerCase())
+        expect(fourRandom).not.toBeUndefined()
+        const found = fourWords.includes(fourRandom?.w_word?.toLowerCase() ?? "")
         expect(found).toBe(true)
     }
 

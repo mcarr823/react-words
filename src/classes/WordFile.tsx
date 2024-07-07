@@ -24,20 +24,20 @@ export default class WordFile implements IWordFile{
      * @returns An array containing a random word from the file.
      * Returns an empty array if there are no words.
      */
-    random(): Array<Word> {
+    random(): Word | undefined {
         
         const length = this.words.length
         if (length === 0){
-            return []
+            return undefined
         }
 
         if (length === 1){
-            return [ this.words[0] ]
+            return this.words[0]
         }
 
         const rand = Math.random()
         const index = Math.floor(length * rand)
-        return [ this.words[index] ]
+        return this.words[index]
 
     }
 

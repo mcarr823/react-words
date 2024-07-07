@@ -47,7 +47,7 @@ export default abstract class AbstractFlatFileDriver implements IDatabaseDriver{
         return this.getWordFile(length).words
     }
 
-    async getWordRandom(length: number): Promise<Array<Word>>{
+    async getWordRandom(length: number): Promise<Word | undefined>{
         return this.getWordFile(length).random()
     }
 

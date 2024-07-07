@@ -8,7 +8,7 @@ import Word from "classes/Word";
  */
 export interface IDatabaseDriver{
     getWords: (length: number) => Promise<Array<Word>>;
-    getWordRandom: (length: number) => Promise<Array<Word>>;
+    getWordRandom: (length: number) => Promise<Word | undefined>;
     getLengths: () => Promise<Array<number>>;
     close: () => Promise<void>;
 }
