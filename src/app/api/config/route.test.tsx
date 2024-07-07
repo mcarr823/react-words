@@ -94,7 +94,6 @@ test('PUT and GET /api/config', async () => {
     const letters = 10
     const keyColor = false
     const warnAlreadyAttempted = false
-    const useDatabase = true
     const dbType = 'mongo'
     const dbHost = 'localhost'
     const dbPort = 1234
@@ -103,7 +102,6 @@ test('PUT and GET /api/config', async () => {
         letters,
         keyColor,
         warnAlreadyAttempted,
-        useDatabase,
         dbType,
         dbHost,
         dbPort
