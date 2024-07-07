@@ -23,22 +23,69 @@ export default function PlayViewModel(): IPlayViewModel{
     const addGuess = (
         guess: string
     ) => {
+        // TODO remove first element if guesses are full, but we haven't hit the limit
+        const emptyGuess = "".padEnd(word.length, " ")
+        const index = guesses.indexOf(emptyGuess)
         setGuesses([
-            ...guesses.slice(0, 5),
-            guess
+            ...guesses.slice(0, index),
+            guess,
+            ...guesses.slice(index, maxLength-1)
         ])
+    }
+
+    const currentGuessAdd = (letter: string) => {
+        const trimmed = currentGuess.trim()
+        if (trimmed.length < word.length){
+            const newGuess = (trimmed+letter).padEnd(word.length, " ")
+            console.log(`Setting current guess to ${newGuess}`)
+            setCurrentGuess(newGuess)
+        }else{
+            console.log("Guess is already full")
+        }
+    }
+
+    const currentGuessBackspace = () => {
+        const trimmed = currentGuess.trim()
+        if (trimmed.length > 0){
+            const guessMinusLastChar = trimmed.substring(0, trimmed.length - 1)
+            const newGuess = guessMinusLastChar.padEnd(word.length, " ")
+            setCurrentGuess(newGuess)
+        }else{
+            console.log("Guess is already empty")
+        }
+    }
+
+    const currentGuessSubmit = () => {
+        const trimmed = currentGuess.trim()
+        if (trimmed.length == word.length){
+            addGuess(trimmed)
+            //if game is finished (either correct or max guesses exceeded)
+            //add hinting to current guess (if last)
+            //else
+
+            const newGuess = "".padEnd(word.length, " ")
+            setCurrentGuess(newGuess)
+        }else{
+            console.log("Guess is not full")
+        }
     }
 
     return {
         word,
         guesses,
-        addGuess
+        currentGuess,
+        currentGuessAdd,
+        currentGuessBackspace,
+        currentGuessSubmit
     }
 
 }
 
-interface IPlayViewModel{
+export interface IPlayViewModel{
     word: string;
     guesses: Array<string>;
-    addGuess: (guess: string) => void;
+    currentGuess: string;
+    currentGuessAdd: (letter: string) => void;
+    currentGuessBackspace: () => void;
+    currentGuessSubmit: () => void;
 }
