@@ -5,6 +5,7 @@ import { Hint } from "enums/Hint";
  * 
  * @param letter Letter to show on the key
  * @param hint Type of hint to give for this letter
+ * @param onClick Event handler to invoke when the key is pressed
  * @returns Div node containing the key
  */
 export default function Key(args : ILetter){
@@ -19,8 +20,12 @@ export default function Key(args : ILetter){
         hint == Hint.WRONG_PLACEMENT ? "bg-warning" : ""
     )
 
+    const onClick = () => {
+        args.onClick(letter.toUpperCase())
+    }
+
     return (
-        <div className="col-1 p-0 m-0 ms-1 mt-1">
+        <div className="col-1 p-0 m-0 ms-1 mt-1" style={{ cursor:'pointer' }} onClick={onClick}>
             <div className={className}>
                 <div className="card-body pt-2 pb-0">
                     <h2 style={{ fontFamily:"monospace" }}>{letter.toUpperCase()}</h2>
@@ -34,4 +39,5 @@ export default function Key(args : ILetter){
 interface ILetter{
     letter: string;
     hint: Hint;
+    onClick: (value: string) => void;
 }
