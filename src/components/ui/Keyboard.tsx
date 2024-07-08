@@ -39,7 +39,7 @@ export default function Keyboard({ model } : { model: IPlayViewModel }){
     useEffect(() => {
         document.addEventListener("keydown", handleKeyDown)
         return () => { document.removeEventListener("keydown", handleKeyDown) }
-    }, [model.loaded])
+    }, [model.loaded, handleKeyDown])
 
     return (
         <div className="text-center">
