@@ -23,7 +23,7 @@ export default function Keyboard({ model } : { model: IPlayViewModel }){
 
         if (row1.includes(e.key) || row2.includes(e.key) || row3.includes(e.key)){
             e.preventDefault();
-            model.currentGuessAdd(e.key.toUpperCase())
+            model.currentGuessAdd(e.key)
         }else if (e.key === 'Enter') {
             e.preventDefault();
             model.currentGuessSubmit()

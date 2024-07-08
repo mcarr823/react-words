@@ -74,7 +74,7 @@ export default function PlayViewModel(): IPlayViewModel{
     const currentGuessAdd = (letter: string) => {
         const trimmed = currentGuess.trim()
         if (trimmed.length < word.length){
-            const newGuess = (trimmed+letter).padEnd(word.length, " ")
+            const newGuess = (trimmed+letter).padEnd(word.length, " ").toUpperCase()
             setCurrentGuess(newGuess)
         }else{
             console.log("Guess is already full")

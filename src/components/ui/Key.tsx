@@ -21,7 +21,7 @@ export default function Key(args : ILetter){
     )
 
     const onClick = () => {
-        args.onClick(letter.toUpperCase())
+        args.onClick(letter)
     }
 
     return (
