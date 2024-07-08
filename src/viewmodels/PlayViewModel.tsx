@@ -20,8 +20,9 @@ export default function PlayViewModel(): IPlayViewModel{
         const maxWordLength = newWord.length
         const paddedInitialAttempt = "".padEnd(maxWordLength, " ")
 
-        const initialGuesses = Array<string>(maxNumberOfGuesses)
-        for (var i = 0; i < maxNumberOfGuesses; i += 1)
+        const guessesToShow = maxNumberOfGuesses < 4 ? maxNumberOfGuesses : 4
+        const initialGuesses = Array<string>(guessesToShow)
+        for (var i = 0; i < guessesToShow; i += 1)
             initialGuesses[i] = paddedInitialAttempt
 
         setWord(newWord)
@@ -67,16 +68,36 @@ export default function PlayViewModel(): IPlayViewModel{
     const addGuess = (
         guess: string
     ) => {
-        // TODO remove first element if guesses are full, but we haven't hit the limit
+
         const emptyGuess = "".padEnd(word.length, " ")
-        const index = guesses.indexOf(emptyGuess)
+
+        // Maximum number of guesses to show at once.
+        // Note that this number is 1 less than in the startNewGame function.
+        // That is because one space will be taken up by the new guess being inserted.
+        const guessesToShow = (allowedAttempts < 4 ? allowedAttempts : 4) - 1
+
+        // Find the first empty guess.
+        // If there is one, then that means the grid isn't full yet,
+        // so we should put our guess in the next empty space.
+        // If there aren't any more empty guesses, that means the grid
+        // is full, so we're going to have to shift the previous guesses
+        // up one row to make more space.
+        var offset = 0
+        var index = guesses.indexOf(emptyGuess)
+        if (index == -1){
+            index = guesses.length - 1
+            offset = 1
+        }
+
         setGuesses([
-            ...guesses.slice(0, index),
+            ...guesses.slice(offset, index+offset),
             guess,
-            ...guesses.slice(index, 5)
+            ...guesses.slice(index+offset, guessesToShow+offset)
         ])
     }
 
+    // If we're at least 1 character away from the character limit,
+    // add the new character to the end of the current guess
     const currentGuessAdd = (letter: string) => {
         const trimmed = currentGuess.trim()
         if (trimmed.length < word.length){
@@ -87,6 +108,8 @@ export default function PlayViewModel(): IPlayViewModel{
         }
     }
 
+    // If there's at least one character guessed, remove the
+    // last character from the current guess
     const currentGuessBackspace = () => {
         const trimmed = currentGuess.trim()
         if (trimmed.length > 0){
@@ -101,10 +124,6 @@ export default function PlayViewModel(): IPlayViewModel{
     const currentGuessSubmit = () => {
         const trimmed = currentGuess.trim()
         if (trimmed.length == word.length){
-            addGuess(trimmed)
-            //if game is finished (either correct or max guesses exceeded)
-            //add hinting to current guess (if last)
-            //else
 
             // If we've guessed correctly, or allowedAttempts has been reached,
             // then the game is over.
@@ -115,8 +134,10 @@ export default function PlayViewModel(): IPlayViewModel{
                 return
             }
 
+            addGuess(trimmed)
             const newGuess = "".padEnd(word.length, " ")
             setCurrentGuess(newGuess)
+            setCurrentAttempt(currentAttempt+1)
         }else{
             console.log("Guess is not full")
         }
