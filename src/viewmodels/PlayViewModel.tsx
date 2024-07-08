@@ -12,6 +12,7 @@ export default function PlayViewModel(): IPlayViewModel{
     const [currentAttempt, setCurrentAttempt] = useState<number>(0)
     const [loaded, setLoaded] = useState<boolean>(false)
     const [error, setError] = useState<string>("")
+    const [gameOver, setGameOver] = useState<boolean>(false)
 
     const startNewGame = (newWord: string, config: IConfig) => {
 
@@ -28,6 +29,7 @@ export default function PlayViewModel(): IPlayViewModel{
         setCurrentGuess(paddedInitialAttempt)
         setAllowedAttempts(maxNumberOfGuesses)
         setCurrentAttempt(0)
+        setGameOver(false)
 
     }
 
@@ -100,6 +102,15 @@ export default function PlayViewModel(): IPlayViewModel{
             //add hinting to current guess (if last)
             //else
 
+            // If we've guessed correctly, or allowedAttempts has been reached,
+            // then the game is over.
+            const correctGuess = trimmed == word
+            const noAttemptsLeft = currentAttempt == allowedAttempts
+            if (correctGuess || noAttemptsLeft){
+                setGameOver(true)
+                return
+            }
+
             const newGuess = "".padEnd(word.length, " ")
             setCurrentGuess(newGuess)
         }else{
@@ -113,7 +124,8 @@ export default function PlayViewModel(): IPlayViewModel{
         currentGuess,
         currentGuessAdd,
         currentGuessBackspace,
-        currentGuessSubmit
+        currentGuessSubmit,
+        gameOver
     }
 
 }
@@ -125,4 +137,5 @@ export interface IPlayViewModel{
     currentGuessAdd: (letter: string) => void;
     currentGuessBackspace: () => void;
     currentGuessSubmit: () => void;
+    gameOver: boolean;
 }
