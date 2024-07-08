@@ -33,6 +33,10 @@ export default function PlayViewModel(): IPlayViewModel{
 
     }
 
+    const playAgain = () => {
+        setLoaded(false)
+    }
+
     // When the viewmodel first loads, fetch the config from the server
     useEffect(() => {
         if (!loaded){
@@ -125,6 +129,9 @@ export default function PlayViewModel(): IPlayViewModel{
         currentGuessAdd,
         currentGuessBackspace,
         currentGuessSubmit,
+        error,
+        loaded,
+        playAgain,
         gameOver
     }
 
@@ -137,5 +144,8 @@ export interface IPlayViewModel{
     currentGuessAdd: (letter: string) => void;
     currentGuessBackspace: () => void;
     currentGuessSubmit: () => void;
+    error: string;
+    loaded: boolean;
+    playAgain: () => void;
     gameOver: boolean;
 }

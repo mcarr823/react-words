@@ -2,7 +2,8 @@
 
 import Letters from "@/components/letters/Letters";
 import Keyboard from "@/components/ui/Keyboard";
-import PlayViewModel from "viewmodels/PlayViewModel";
+import React from "react";
+import PlayViewModel, { IPlayViewModel } from "viewmodels/PlayViewModel";
 
 /**
  * The actual game screen.
@@ -38,7 +39,86 @@ export default function Play() {
                 
                 </div>
             </div>
+
+            <GameOver model={model}/>
+            <Loading model={model}/>
+            <ErrorAlert model={model}/>
         </div>
     );
+}
+
+function GameOver({model} : {model: IPlayViewModel}){
+
+    if (!model.gameOver){
+        return (<></>)
+    }
+
+    const correctGuess = model.currentGuess == model.word
+    const title = correctGuess ? "Victory" : "Game Over"
+    const text = correctGuess ? "Great job!" : `The word was: ${model.word}`
+    const playAgain = (
+        <button type="button" className="btn btn-primary" tabIndex={0} onClick={model.playAgain}>Play Again</button>
+    )
+
+    return (
+        <Modal title={title} message={text} button={playAgain}/>
+    )
+}
+
+function Loading({model} : {model: IPlayViewModel}){
+
+    if (model.loaded){
+        return (<></>)
+    }
+
+    return (
+        <Modal title="Loading" message="Preparing your game - please wait" button={(<>&nbsp;</>)}/>
+    )
+
+}
+
+function ErrorAlert({model} : {model: IPlayViewModel}){
+
+    if (model.error.length === 0){
+        return (<></>)
+    }
+
+    return (
+        <Modal title="Error" message={model.error} button={(<>&nbsp;</>)}/>
+    )
+}
+
+function Modal({
+    title,
+    message,
+    button
+} : {
+    title: string;
+    message: string;
+    button: React.ReactNode
+}){
+
+    const styles = {
+        display: 'block',
+        background: '#0007'
+    }
+
+    return (
+        <div className="modal" style={styles} tabIndex={-1}>
+            <div className="modal-dialog">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h5 className="modal-title">{title}</h5>
+                    </div>
+                    <div className="modal-body">
+                        <b>{message}</b>
+                    </div>
+                    <div className="modal-footer">
+                        {button}
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
 }
 

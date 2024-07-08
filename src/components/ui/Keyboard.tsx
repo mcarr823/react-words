@@ -19,6 +19,10 @@ export default function Keyboard({ model } : { model: IPlayViewModel }){
     const midRow = row2.map(l => <Key key={l} letter={l} hint={Hint.NONE} onClick={model.currentGuessAdd}/>)
     const bottomRow = row3.map(l => <Key key={l} letter={l} hint={Hint.NONE} onClick={model.currentGuessAdd}/>)
 
+    // Handle keyboard events
+    // If it's an alpha key, add it to the current guess.
+    // If it's Enter, submit the current guess.
+    // If it's Backspace, delete the last character.
     const handleKeyDown = (e: globalThis.KeyboardEvent) => {
 
         if (row1.includes(e.key) || row2.includes(e.key) || row3.includes(e.key)){
