@@ -20,6 +20,10 @@ export default function Play() {
     // For now, let's just display a few hard-coded test words
     const guessNodes = model.guesses.map((g, i) => <Letters key={i} word={model.word} guess={g}/>)
 
+    // Only show color hints on the "input" tiles if the game has ended,
+    // so our last guess will be highlighted where it is
+    const disableInputHints = !model.gameOver
+
     return (
         
         <div className="row justify-content-center">
@@ -32,7 +36,7 @@ export default function Play() {
 
                     <div className="p-3">
                         {guessNodes}
-                        <Letters word="" guess={model.currentGuess} disableHints={true}/>
+                        <Letters word="" guess={model.currentGuess} disableHints={disableInputHints}/>
                     </div>
 
                     <Keyboard model={model}/>
