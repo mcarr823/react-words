@@ -36,7 +36,7 @@ export default function Play() {
 
                     <div className="p-3">
                         {guessNodes}
-                        <Letters word="" guess={model.currentGuess} disableHints={disableInputHints}/>
+                        <Letters word={model.word} guess={model.currentGuess} disableHints={disableInputHints}/>
                     </div>
 
                     <Keyboard model={model}/>
