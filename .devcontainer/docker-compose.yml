@@ -5,7 +5,8 @@ services:
     volumes:
       - ..:/workspace:cached
       - ./testconfig:/workspace/src/data
-    command: sleep infinity
+      #command: sleep infinity
+    command: npm run dev --prefix /workspace/src
   #   links:
   #     - mongo:mongo
   #     - mariadb:mariadb

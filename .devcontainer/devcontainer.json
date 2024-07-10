@@ -1,7 +1,7 @@
 {
 	"name": "Node.js & TypeScript",
-	"forwardPorts": ["node:3000"],
-	"postCreateCommand": "npm i --prefix src && npm run --prefix src dev",
+	"updateContentCommand": "npm i --prefix src",
+	
 	"workspaceFolder": "/workspace",
 	"service": "node",
 	"dockerComposeFile": "docker-compose.yml",
