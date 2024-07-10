@@ -1,3 +1,4 @@
+import { Hint } from "enums/Hint"
 import IConfig from "interfaces/IConfig"
 import IWordRequestResponse from "interfaces/IWordRequestResponse"
 import { INextResponseSuccess } from "network/NextResponseSuccess"
@@ -8,6 +9,7 @@ export default function PlayViewModel(): IPlayViewModel{
     const [word, setWord] = useState<string>("")
     const [guesses, setGuesses] = useState<Array<string>>([])
     const [currentGuess, setCurrentGuess] = useState<string>("")
+    const [guessedLetters, setGuessedLetters] = useState<string>("")
     const [allowedAttempts, setAllowedAttempts] = useState<number>(0)
     const [currentAttempt, setCurrentAttempt] = useState<number>(0)
     const [loaded, setLoaded] = useState<boolean>(false)
@@ -25,6 +27,7 @@ export default function PlayViewModel(): IPlayViewModel{
         for (var i = 0; i < guessesToShow; i += 1)
             initialGuesses[i] = paddedInitialAttempt
 
+        setGuessedLetters("")
         setWord(newWord)
         setGuesses(initialGuesses)
         setCurrentGuess(paddedInitialAttempt)
@@ -69,6 +72,19 @@ export default function PlayViewModel(): IPlayViewModel{
         guess: string
     ) => {
 
+        // Keep track of letters we've already guessed so we can
+        // illustrate this visually, so the player doesn't guess
+        // the same letter again by mistake.
+        // Removing duplicates isn't strictly necessary, but we
+        // might as well.
+        const oldGuesses = guessedLetters.split("")
+        const newGuessLetters = guess.split("")
+        newGuessLetters.forEach(l => {
+            if (!oldGuesses.includes(l)) oldGuesses.push(l)
+        })
+        const joinedGuesses = oldGuesses.join("")
+        setGuessedLetters(joinedGuesses)
+
         const emptyGuess = "".padEnd(word.length, " ")
 
         // Maximum number of guesses to show at once.
@@ -94,6 +110,22 @@ export default function PlayViewModel(): IPlayViewModel{
             guess,
             ...guesses.slice(index+offset, guessesToShow+offset)
         ])
+    }
+
+    // Returns the color which the corresponding virtual keyboard letter
+    // should be.
+    // If the letter hasn't been guessed, return NONE.
+    // If the letter has been guessed and is in the word, return CORRECT.
+    // If it's been guessed and isn't in the word, return INCORRECT.
+    const getAlreadyGuessedHint = (letter: string): Hint => {
+        const upper = letter.toUpperCase()
+        const alreadyGuessed = guessedLetters.includes(upper)
+        if (!alreadyGuessed)
+            return Hint.NONE
+        else if (word.includes(upper))
+            return Hint.CORRECT
+        else
+            return Hint.INCORRECT
     }
 
     // If we're at least 1 character away from the character limit,
@@ -153,7 +185,8 @@ export default function PlayViewModel(): IPlayViewModel{
         error,
         loaded,
         playAgain,
-        gameOver
+        gameOver,
+        getAlreadyGuessedHint
     }
 
 }
@@ -169,4 +202,5 @@ export interface IPlayViewModel{
     loaded: boolean;
     playAgain: () => void;
     gameOver: boolean;
+    getAlreadyGuessedHint: (letter: string) => Hint;
 }

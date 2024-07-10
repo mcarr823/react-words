@@ -13,17 +13,17 @@ Done:
 - Random word picking
 - Color coding of guesses
 - JSON word databases
+- Keyboard color coding
 
 To do:
 
 - Other database formats (written, but not implemented)
 - Other settings
-- Keyboard color coding
 - Hiding of keyboard on mobile devices
 - Setup via environment variables instead of config
 - Docker container
 - Color legend
-- Ability to add new words
+- Ability to add new words to database
 - Animations
 
 

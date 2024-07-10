@@ -15,9 +15,10 @@ export default function Keyboard({ model } : { model: IPlayViewModel }){
     const row2 = ["a","s","d","f","g","h","j","k","l"]
     const row3 = ["z","x","c","v","b","n","m"]
 
-    const topRow = row1.map(l => <Key key={l} letter={l} hint={Hint.NONE} onClick={model.currentGuessAdd}/>)
-    const midRow = row2.map(l => <Key key={l} letter={l} hint={Hint.NONE} onClick={model.currentGuessAdd}/>)
-    const bottomRow = row3.map(l => <Key key={l} letter={l} hint={Hint.NONE} onClick={model.currentGuessAdd}/>)
+    const getHint = (letter: string) => model.getAlreadyGuessedHint(letter)
+    const topRow = row1.map(l => <Key key={l} letter={l} hint={getHint(l)} onClick={model.currentGuessAdd}/>)
+    const midRow = row2.map(l => <Key key={l} letter={l} hint={getHint(l)} onClick={model.currentGuessAdd}/>)
+    const bottomRow = row3.map(l => <Key key={l} letter={l} hint={getHint(l)} onClick={model.currentGuessAdd}/>)
 
     // Handle keyboard events
     // If it's an alpha key, add it to the current guess.
