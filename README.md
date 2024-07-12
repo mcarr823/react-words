@@ -22,7 +22,6 @@ To do:
 - Hiding of keyboard on mobile devices
 - Setup via environment variables instead of config
 - Docker container
-- Color legend
 - Ability to add new words to database
 - Animations
 

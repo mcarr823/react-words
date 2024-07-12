@@ -1,4 +1,8 @@
+"use client"
+
+import InfoModal from "@/components/modal/InfoModal";
 import Link from "next/link"
+import ModalViewModel from "viewmodels/ModalViewModel";
 
 /**
  * Default website screen
@@ -6,6 +10,9 @@ import Link from "next/link"
  * @returns Home screen
  */
 export default function Home() {
+
+  const model = ModalViewModel()
+
   return (
     
     <div className="row justify-content-center">
@@ -26,13 +33,21 @@ export default function Home() {
           </div>
 
           <div className="card-footer text-center pt-3">
+            <button
+              className="btn btn-warning btn-lg"
+              onClick={model.showModal}
+              >
+                How To Play
+            </button>
             <Link
               href="/play"
-              className="btn btn-primary btn-lg"
+              className="btn btn-primary btn-lg ms-3"
               >
                 Play Now!
             </Link>
           </div>
+
+          <InfoModal model={model}/>
           
         </div>
       </div>

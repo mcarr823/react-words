@@ -1,8 +1,11 @@
 "use client"
 
 import Letters from "@/components/letters/Letters";
+import InfoModal from "@/components/modal/InfoModal";
 import Keyboard from "@/components/ui/Keyboard";
 import React from "react";
+import { InfoCircle } from "react-bootstrap-icons";
+import ModalViewModel from "viewmodels/ModalViewModel";
 import PlayViewModel, { IPlayViewModel } from "viewmodels/PlayViewModel";
 
 /**
@@ -16,6 +19,7 @@ import PlayViewModel, { IPlayViewModel } from "viewmodels/PlayViewModel";
 export default function Play() {
 
     const model = PlayViewModel()
+    const infoModel = ModalViewModel()
 
     // For now, let's just display a few hard-coded test words
     const guessNodes = model.guesses.map((g, i) => <Letters key={i} word={model.word} guess={g}/>)
@@ -34,6 +38,14 @@ export default function Play() {
                         Words
                     </h2>
 
+                    <div className="ps-3">
+                        <button className="btn btn-warning" onClick={infoModel.showModal}>
+                            <InfoCircle/>
+                            &nbsp;
+                            <span className="p-2">How To Play</span>
+                        </button>
+                    </div>
+
                     <div className="p-3">
                         {guessNodes}
                         <Letters word={model.word} guess={model.currentGuess} disableHints={disableInputHints}/>
@@ -47,6 +59,7 @@ export default function Play() {
             <GameOver model={model}/>
             <Loading model={model}/>
             <ErrorAlert model={model}/>
+            <InfoModal model={infoModel}/>
         </div>
     );
 }
