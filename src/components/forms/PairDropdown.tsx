@@ -19,7 +19,7 @@ export default function PairDropdown({
         setValue(event.target.value)
     }
 
-    const elements = options.map(args => <DropdownOption args={args}/>)
+    const elements = options.map(args => <DropdownOption key={args.key} args={args}/>)
 
     return (
         <div className="mb-3">

@@ -25,7 +25,7 @@ export default function NumberDropdown({
     for (var i = 0; i < optionText.length; i++){
         const text = optionText[i]
         const value = optionValues[i];
-        options.push(<DropdownOption text={text} value={value}/>)
+        options.push(<DropdownOption key={text} text={text} value={value}/>)
     }
 
     return (
