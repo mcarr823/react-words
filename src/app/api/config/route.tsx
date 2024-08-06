@@ -24,6 +24,11 @@ export async function GET(_: NextRequest) {
 }
 
 export async function PUT(request: NextRequest) {
+
+    if (process.env.LOCK_CONFIG){
+        return NextResponseError('Permission denied')
+    }
+
     try{
         // Note: request.json() actually gives an Object,
         // rather than JSON.

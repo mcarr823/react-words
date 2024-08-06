@@ -17,7 +17,7 @@ export default function RootLayout({
               <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                 <NavLink text="Home" href="/"/>
                 <NavLink text="Play" href="/play"/>
-                <NavLink text="Setup" href="/settings"/>
+                <SetupLink/>
               </ul>
             </div>
           </div>
@@ -36,6 +36,18 @@ function NavLink(args : INavLinkArgs){
     <li className="nav-item">
       <Link className="nav-link" href={href}>{text}</Link>
     </li>
+  )
+}
+
+function SetupLink(){
+  if (process.env.LOCK_CONFIG){
+    return (
+      <></>
+    )
+  }
+
+  return (
+    <NavLink text="Setup" href="/settings"/>
   )
 }
 
