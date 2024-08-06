@@ -10,7 +10,33 @@ export const configFile = process.cwd()+"/data/config.json"
 export const dynamic = 'force-dynamic' // defaults to auto
 
 export async function GET(_: NextRequest) {
+
     var config = Config.emptyConfig()
+    
+    if (process.env.CONFIG_USE_ENVIRONMENT_VARIABLES){
+        if (process.env.CONFIG_ATTEMPTS){
+            config.attempts = parseInt(process.env.CONFIG_ATTEMPTS)
+        }
+        if (process.env.CONFIG_LETTERS){
+            config.letters = parseInt(process.env.CONFIG_LETTERS)
+        }
+        if (process.env.CONFIG_KEY_COLOR){
+            config.keyColor = process.env.CONFIG_KEY_COLOR === "true"
+        }
+        if (process.env.CONFIG_WARN_ALREADY_ATTEMPTED){
+            config.warnAlreadyAttempted = process.env.CONFIG_WARN_ALREADY_ATTEMPTED === "true"
+        }
+        if (process.env.CONFIG_DB_TYPE){
+            config.dbType = process.env.CONFIG_DB_TYPE
+        }
+        if (process.env.CONFIG_DB_HOST){
+            config.dbHost = process.env.CONFIG_DB_HOST
+        }
+        if (process.env.CONFIG_DB_PORT){
+            config.dbPort = parseInt(process.env.CONFIG_DB_PORT)
+        }
+    }
+
     try{
         const data = fs.readFileSync(configFile)
         const json = JSON.parse(data.toString())
