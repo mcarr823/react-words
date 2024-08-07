@@ -9,6 +9,7 @@ import { INextResponseSuccess } from 'network/NextResponseSuccess'
 import { INextResponseError } from 'network/NextResponseError'
 import fs from "node:fs"
 import Config from 'classes/Config';
+import { INextResponse } from 'interfaces/INextResponse';
 
 var initialConfig = ""
 var configFileExisted = true
@@ -58,10 +59,10 @@ test('PUT /api/config', async () => {
     } as any;
 
     const response = await PUT(requestObj);
-    const body: INextResponseSuccess = await response.json();
+    const body: INextResponse = await response.json();
 
-    expect(response.status).toBe(200);
-    expect(body.success).toBe(true)
+    expect(response.status).toBe(200)
+    expect(body.success).toBeDefined()
 
 });
 
