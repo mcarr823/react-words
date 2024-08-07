@@ -1,3 +1,4 @@
+import { INextResponse } from 'interfaces/INextResponse';
 import { NextResponse } from 'next/server'
 
 /**
@@ -17,7 +18,6 @@ export default function NextResponseError(
     return NextResponse.json(json, { status: statusCode })
 }
 
-export interface INextResponseError{
-    success: boolean;
+export interface INextResponseError extends INextResponse{
     error: string;
 }

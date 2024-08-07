@@ -1,3 +1,4 @@
+import { INextResponse } from 'interfaces/INextResponse';
 import { NextResponse } from 'next/server'
 
 /**
@@ -21,7 +22,6 @@ export default function NextResponseSuccess(
     return NextResponse.json(json)
 }
 
-export interface INextResponseSuccess{
-    success: boolean;
+export interface INextResponseSuccess extends INextResponse{
     data?: any;
 }
