@@ -34,7 +34,7 @@ export default function PairDropdown({
             <select
                 id={id}
                 className="form-select"
-                defaultValue={value}
+                value={value}
                 onChange={onChange}
                 >
                 {elements}

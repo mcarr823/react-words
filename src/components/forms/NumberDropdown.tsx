@@ -41,7 +41,7 @@ export default function NumberDropdown({
             <select
                 id={id}
                 className="form-select"
-                defaultValue={value}
+                value={value}
                 onChange={onChange}
                 >
                 {options}
