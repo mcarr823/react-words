@@ -29,13 +29,13 @@ export default function SettingsViewModel(): ISettingsViewModel{
 
     // When the viewmodel first loads, fetch the config from the server
     useEffect(() => {
-        if (loaded){
+        if (!loaded){
             fetch('/api/config')
                 .then((res) => res.json())
                 .then((res: INextResponseSuccess) => {
                     const data = res.data as IConfig
                     importConfig(data)
-                    setLoaded(false)
+                    setLoaded(true)
                 })
         }
     }, [loaded])
