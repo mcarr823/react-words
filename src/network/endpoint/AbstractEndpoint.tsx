@@ -20,7 +20,7 @@ export abstract class AbstractEndpoint{
      * @param length Length of the word to request
      * @return A word of the requested length
      * */
-    abstract getRandomWord(length: number | undefined): Promise<String>
+    abstract getRandomWord(length: number | undefined): Promise<string>
 
     /**
      * Performs a request to an API endpoint, expecting
@@ -32,7 +32,7 @@ export abstract class AbstractEndpoint{
      * @param query Query string to append to the end of the API endpoint.
      * @return A list of words returned from the API endpoint.
      * */
-    async getJsonStringArray(query: String): Promise<Array<String>> {
+    async getJsonStringArray(query: string): Promise<Array<string>> {
         const url = `${this.baseUrl}/${query}`
         return fetch(url)
                 .then(res => res.text())
@@ -49,7 +49,7 @@ export abstract class AbstractEndpoint{
      * @param query Query string to append to the end of the API endpoint.
      * @return The first word returned from the API endpoint
      * */
-    async getJsonStringArraySingle(query: String): Promise<String> {
+    async getJsonStringArraySingle(query: string): Promise<string> {
         return this.getJsonStringArray(query)
                     .then(arr => arr[0])
     }

@@ -10,7 +10,7 @@ export class RyanrkEndpoint extends AbstractEndpoint {
         super("https://random-word.ryanrk.com/api/en")
     }
 
-    override getRandomWord(length?: number | undefined): Promise<String> {
+    override getRandomWord(length?: number | undefined): Promise<string> {
         if (length)
             return this.getJsonStringArraySingle(`word/random/?length=${length}`)
         else

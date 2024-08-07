@@ -10,7 +10,7 @@ export class HerokuEndpoint extends AbstractEndpoint {
         super("https://random-word-api.herokuapp.com")
     }
 
-    override getRandomWord(length?: number | undefined): Promise<String> {
+    override getRandomWord(length?: number | undefined): Promise<string> {
         if (length)
             return this.getJsonStringArraySingle(`word?length=${length}`)
         else
@@ -25,7 +25,7 @@ export class HerokuEndpoint extends AbstractEndpoint {
      *
      * @return A list of words from the server
      * */
-    downloadAllWords(): Promise<Array<String>> {
+    downloadAllWords(): Promise<Array<string>> {
         return this.getJsonStringArray("all")
     }
 }

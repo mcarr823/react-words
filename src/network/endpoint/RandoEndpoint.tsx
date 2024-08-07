@@ -10,7 +10,7 @@ export class RandoEndpoint extends AbstractEndpoint {
         super("https://random-word-api.vercel.app")
     }
 
-    override getRandomWord(length?: number | undefined): Promise<String> {
+    override getRandomWord(length?: number | undefined): Promise<string> {
         if (length)
             return this.getJsonStringArraySingle(`api?words=1&length=${length}`)
         else
