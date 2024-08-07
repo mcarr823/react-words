@@ -35,6 +35,7 @@ export async function GET(_: NextRequest) {
         if (process.env.CONFIG_DB_PORT){
             config.dbPort = parseInt(process.env.CONFIG_DB_PORT)
         }
+        return NextResponseSuccess(config)
     }
 
     try{
