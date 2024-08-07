@@ -67,7 +67,7 @@ export default function Settings() {
 
                 <PairDropdown
                     id="database"
-                    label="Possible words storage"
+                    label="Word source"
                     options={databaseTypes}
                     value={model.dbType}
                     setValue={model.setDbType}
