@@ -14,10 +14,11 @@ export default function NextResponseError(
     error: string,
     statusCode: number = 500
 ): NextResponse<INextResponseError>{
-    const json: INextResponseError = { success:false, error }
-    return NextResponse.json(json, { status: statusCode })
+    const json: INextResponseError = { success:false, statusCode, error }
+    return NextResponse.json(json, { status: 200 })
 }
 
 export interface INextResponseError extends INextResponse{
+    statusCode: number;
     error: string;
 }

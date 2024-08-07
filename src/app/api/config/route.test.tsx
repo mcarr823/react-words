@@ -78,8 +78,9 @@ test('PUT /api/config', async () => {
     const response = await PUT(requestObj);
     const body: INextResponseError = await response.json();
 
-    expect(response.status).toBe(500);
+    expect(response.status).toBe(200);
     expect(body.success).toBe(false)
+    expect(body.statusCode).toBe(500)
 
 });
 
