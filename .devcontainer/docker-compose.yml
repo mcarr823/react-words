@@ -17,6 +17,7 @@ services:
       CONFIG_DB_TYPE: 'json'
       CONFIG_DB_HOST: ''
       CONFIG_DB_PORT: 0
+      UNIT_TEST_INCLUDE_NETWORK: 'false'
   #   links:
   #     - mongo:mongo
   #     - mariadb:mariadb
