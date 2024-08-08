@@ -5,10 +5,10 @@ import { NextRequest } from "next/server"
 import IWordRequestResponse from "interfaces/IWordRequestResponse"
 import IWordFile from "interfaces/IWordFile"
 import WordFile from "classes/WordFile"
-import JsonDriver from "database/json/JsonDriver"
 import IDeleteWordRequest from "interfaces/IDeleteWordRequest"
 import IConfig from "interfaces/IConfig"
 import {GET as getConfig} from "../config/route"
+import DatabaseDriverBuilder from "database/DatabaseDriverBuilder"
 
 export const localWordDir = process.cwd()+"/data/words"
 
@@ -21,11 +21,9 @@ export async function GET(_: NextRequest) {
         const nextResponseSuccess: INextResponseSuccess = await configResponse.json()
         const wordReq: IConfig = nextResponseSuccess.data
 
-        const length = wordReq.letters
-
-        // TODO get different driver depending on IConfig parameter
-        const driver = new JsonDriver()
+        const driver = DatabaseDriverBuilder(wordReq)
         
+        const length = wordReq.letters
         const word = await driver.getWordRandom(length)
         if (word){
             const returnData: IWordRequestResponse = { word }

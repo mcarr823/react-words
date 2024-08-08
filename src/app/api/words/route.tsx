@@ -1,30 +1,35 @@
 import fs from "node:fs"
 import NextResponseError from "network/NextResponseError"
-import NextResponseSuccess from "network/NextResponseSuccess"
+import NextResponseSuccess, { INextResponseSuccess } from "network/NextResponseSuccess"
 import { NextRequest } from "next/server"
-import JsonDriver from "database/json/JsonDriver"
 import IWordsRequestResponse from "interfaces/IWordsRequestResponse"
 import IWordsRequest from "interfaces/IWordsRequest"
 import IDeleteWordsRequest from "interfaces/IDeleteWordsRequest"
+import {GET as getConfig} from "../config/route"
+import DatabaseDriverBuilder from "database/DatabaseDriverBuilder"
+import IConfig from "interfaces/IConfig"
 
 export const localWordDir = process.cwd()+"/data/words"
 
 export const dynamic = 'force-dynamic' // defaults to auto
 
 export async function GET(request: NextRequest) {
-    try{
-        const wordReq: IWordsRequest = await request.json()
 
+    try{
+        const configResponse = await getConfig(request)
+        const nextResponseSuccess: INextResponseSuccess = await configResponse.json()
+        const config: IConfig = nextResponseSuccess.data
+
+        const wordReq: IWordsRequest = await request.json()
         const length = wordReq.length
 
-        const driver = new JsonDriver()
+        const driver = DatabaseDriverBuilder(config)
         const words = await driver.getWords(length)
         const returnData: IWordsRequestResponse = { words }
         return NextResponseSuccess(returnData)
     }catch(err){
         return NextResponseError("Failed to retrieve words")
     }
-
     
 }
 
